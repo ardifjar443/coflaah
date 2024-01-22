@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+        z-index: 999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar bg-white fixed shadow-lg">
+      <div class="flex-1"></div>
+      <div class="flex-none gap-2">
+        <div class="form-control">
+          <h1 class="text-black">Pembeli</h1>
+        </div>
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost btn-circle avatar"
+          >
+            <div class="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="../img/profile.png"
+              />
+            </div>
+          </div>
+          <ul
+            tabindex="0"
+            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a class="justify-between">
+                Profile
+                <span class="badge">New</span>
+              </a>
+            </li>
+            <li><a>Settings</a></li>
+            <li><a>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="min-h-screen bg-white flex justify-center items-center">
+      <div class="w-1/2 flex justify-center items-center flex-col gap-5">
+        <div class="bg-gray-400 p-10 text-black rounded-xl shadow-xl">
+          <div class="text-4xl mb-7">Nama Produk</div>
+          <div class="grid grid-cols-3 bg-gray-500 p-1 rounded-lg">
+            <button class="bg-white rounded-2xl" onclick="kurang()">-</button>
+            <p class="text-center text-white" id="jumlah">1</p>
+            <button class="bg-white rounded-2xl" onclick="tambah()">+</button>
+          </div>
+          <div class="bg-gray-500 mt-5 p-2 rounded-xl text-center">
+            <p id="harga">Rp.24.000</p>
+          </div>
+        </div>
+        <button
+          class="bg-gray-400 p-2 rounded-xl text-black font-bold"
+          onclick="showPopup()"
+        >
+          Pay Now
+        </button>
+      </div>
+      <div class="w-1/2 flex justify-center items-center">
+        <div
+          class="bg-gray-400 w-3/4 rounded-xl shadow-xl min-h-48 p-10 text-black text-xl font-bold"
+        >
+          Deskripsi
+        </div>
+      </div>
+      <div class="fixed bottom-4 right-4">
+        <a class="bg-gray-400 p-2 text-black rounded-lg" href="../home/">
+          Kembali
+        </a>
+      </div>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <div
+      id="popup"
+      class="popup flex flex-col p-5 bg-slate-700 rounded-xl hidden"
+    >
+      <img src="../img/qr.png" alt="" class="bg-white rounded-lg" />
+      <button
+        onclick="hidePopup()"
+        class="mt-4 bg-red-500 text-white px-4 py-2 rounded"
+      >
+        Kembali
+      </button>
+    </div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      function formatRupiah(angka) {
+        var formatter = new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        });
+
+        return formatter.format(angka);
+      }
+      function showPopup() {
+        var targetElement = document.getElementById("popup");
+        targetElement.classList.remove("hidden");
+        document.getElementById("overlay").style.display = "block";
+      }
+
+      function hidePopup() {
+        var targetElement = document.getElementById("popup");
+        targetElement.classList.add("hidden");
+        document.getElementById("overlay").style.display = "none";
+      }
+      var jumlah = 1;
+      var harga = 24000;
+
+      function updateJumlah() {
+        // Update the displayed counter value
+        document.getElementById("jumlah").innerText = jumlah;
+      }
+      function tambah() {
+        // Increase the counter value
+        jumlah++;
+        // Update the displayed counter value
+        updateJumlah();
+        document.getElementById("harga").innerText = formatRupiah(
+          jumlah * harga
+        );
+      }
+
+      function kurang() {
+        // Decrease the counter value, but ensure it doesn't go below zero
+        jumlah = Math.max(1, jumlah - 1);
+        // Update the displayed counter value
+        updateJumlah();
+        document.getElementById("harga").innerText = formatRupiah(
+          jumlah * harga
+        );
+      }
+    </script>
+  </body>
+</html>
