@@ -10,6 +10,11 @@ import About from "./component/aboutme";
 import Home from "./home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./login";
+import Produk from "./produk";
+import ScrollToTopOnRouteChange from "./ScrollToTop";
+import TambahStok from "./tambahStok";
+import TambahBarang from "./tambahProduk";
+import PageNotFound from "./component/pageNotFound";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -94,9 +99,14 @@ function App() {
             toAbout={toAbout}
             view2={view2}
           />
+          <ScrollToTopOnRouteChange />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/produk/:id" element={<Produk />} />
+            <Route path="/tambahStok" element={<TambahStok />} />
+            <Route path="/tambahBarang" element={<TambahBarang />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
         <Footer />

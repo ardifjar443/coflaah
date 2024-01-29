@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getDataUser, setDatauser } from "../api/dataUser";
 import Popup from "./popup";
+import { logout } from "../api/login";
 
 const Navbar = (props) => {
   const [popup, setPopup] = useState(false);
@@ -104,7 +105,9 @@ const Navbar = (props) => {
         <div className="navbar-center">
           <button
             className="btn btn-ghost  text-3xl text-white  "
-            onClick={scrollToTop}
+            onClick={() => {
+              navigate("/");
+            }}
           >
             <img
               src="/img/logo.png"
@@ -186,7 +189,7 @@ const Navbar = (props) => {
           </button> */}
             </div>
           ) : (
-            <div>
+            <div className="me-10">
               <button
                 className="bg-amber-500 p-3 py-2 rounded-lg text-white hover:bg-amber-600"
                 onClick={() => {
@@ -222,6 +225,7 @@ const Navbar = (props) => {
           onClose={() => {
             setDatauser(null);
             navigate("/login");
+            logout();
             setPopup(false);
           }}
         />
