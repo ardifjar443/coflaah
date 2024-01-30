@@ -40,8 +40,36 @@ const Product = (props) => {
   };
   useEffect(() => {
     fetchData();
+
     setStatusLogin(cekLogin());
   }, [cekLogin()]);
+
+  if (!dataProduk || dataProduk.length === 0) {
+    return (
+      <>
+        <div
+          className="bg-gradient-to-b from-transparent to-[#eaddcf] p-16"
+          id="product"
+        ></div>
+        <div className="flex justify-center items-center bg-[#eaddcf] flex-col pb-10">
+          <div className="text-black text-3xl font-bold p-10">
+            <h1>Product</h1>
+          </div>
+          <div className="bg-[#2d1b08] p-4 max-w-sm w-full mx-auto rounded-xl">
+            <div className=" shadow rounded-md p-5">
+              <div className="animate-pulse flex space-x-4">
+                <div className="flex-1 space-y-6 py-1">
+                  <div className="h-56 bg-white rounded"></div>
+                  <div className="h-16 bg-white rounded"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-gradient-to-t from-transparent to-[#eaddcf] p-16"></div>
+      </>
+    );
+  }
 
   const cekBaru = (dateString) => {
     const currentDate = new Date();
@@ -81,7 +109,7 @@ const Product = (props) => {
                 key={index}
                 className={
                   index == dataProduk.length - 1 || cekBaru(items.time)
-                    ? "col-span-2 order-first"
+                    ? "col-span-1 lg:col-span-2 md:col-span-1 order-first"
                     : ""
                 }
                 id={"kopi" + index}

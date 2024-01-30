@@ -164,7 +164,7 @@ const Produk = () => {
 
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center flex-col-reverse gap-5 p-10 md:flex-row lg:flex-row pt-20 md:pt-0 lg:pt-0">
         <div className="max-w-sm w-full mx-auto ">
           <div className="bg-white p-4 rounded-xl text-black">
             <h1 className="text-3xl font-bold">
@@ -226,8 +226,8 @@ const Produk = () => {
             <>
               {isiPopup === "qr" ? (
                 <div>
-                  <div className="bg-yellow-950 p-5 rounded-md">
-                    <img src="./img/qr.png" alt="" />
+                  <div className="bg-yellow-950 p-5 rounded-md flex justify-center">
+                    <img src="../img/qr.png" alt="" />
                   </div>
                   <div className="bg-yellow-900 mt-4 p-2 rounded-md text-white text-center">
                     <h1 className="text-lg ">bayar dengan harga :</h1>
@@ -238,13 +238,13 @@ const Produk = () => {
                 </div>
               ) : isiPopup === "bukti" ? (
                 <div className="flex flex-col gap-5">
-                  <h1 className="text-xl text-black font-bold">
+                  <h1 className="text-3xl text-black font-bold">
                     Masukan kode pembayaran
                   </h1>
                   <input
                     type="text"
                     placeholder="Type here"
-                    className="input w-full max-w-xs bg-white border border-yellow-900 text-black"
+                    className="input w-full  bg-white border border-yellow-900 text-black"
                   />
                   <button
                     className="bg-yellow-700 hover:bg-yellow-800 p-2 rounded-md text-white"
@@ -260,7 +260,7 @@ const Produk = () => {
                   <h1 className="text-black text-2xl font-bold">
                     Menunggu konfirmasi
                   </h1>
-                  <img src="./img/nunggu.png" alt="" className="w-1/2" />
+                  <img src="../img/nunggu.png" alt="" className="w-1/2" />
                 </div>
               )}
             </>

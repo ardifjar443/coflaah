@@ -40,15 +40,15 @@ const Navbar = (props) => {
   return (
     <>
       <div
-        className={`navbar  ${
+        className={`flex fixed z-[999] w-full ${
           props.isVisible
             ? "bg-yellow-800 animate__animated animate__fadeInDown rounded-b-xl"
             : " bg-transparent "
         }`}
         style={{ transitionDuration: "1.5s" }}
       >
-        <div className="navbar-start">
-          <div className="dropdown ">
+        <div className="w-full flex  items-center">
+          <div className="dropdown ms-2 ">
             <label
               tabIndex={0}
               className="btn btn-ghost btn-circle text-white "
@@ -102,9 +102,9 @@ const Navbar = (props) => {
             </ul>
           </div>
         </div>
-        <div className="navbar-center">
+        <div className="w-full flex justify-center">
           <button
-            className="btn btn-ghost  text-3xl text-white  "
+            className="btn btn-ghost  text-3xl text-white p-2 h-full w-fit  "
             onClick={() => {
               navigate("/");
             }}
@@ -112,8 +112,7 @@ const Navbar = (props) => {
             <img
               src="/img/logo.png"
               alt=""
-              style={{ width: "15%" }}
-              className={`animate__animated ${
+              className={`w-2/6 md:w-1/6 animate__animated  ${
                 logo && !logo1
                   ? "animate__rotateIn"
                   : !logo && logo1
@@ -123,10 +122,10 @@ const Navbar = (props) => {
             />
           </button>
         </div>
-        <div className="navbar-end  ">
+        <div className="w-full flex justify-end  ">
           {userData ? (
-            <div>
-              <div className="flex  items-center gap-5  me-10 ">
+            <div className="p-2">
+              <div className="flex  items-center gap-5   ">
                 <div className="dropdown dropdown-end  h-full min-h-full">
                   <p className="text-white">{userData.dataUser.username}</p>
                 </div>
@@ -189,9 +188,9 @@ const Navbar = (props) => {
           </button> */}
             </div>
           ) : (
-            <div className="me-10">
+            <div className="p-3">
               <button
-                className="bg-amber-500 p-3 py-2 rounded-lg text-white hover:bg-amber-600"
+                className="bg-amber-500 p-3 py-2  rounded-lg text-white hover:bg-amber-600"
                 onClick={() => {
                   navigate("/login");
                 }}
@@ -205,8 +204,8 @@ const Navbar = (props) => {
       {popup && (
         <Popup
           content={
-            <div className="text-black text-2xl font-bold flex gap-5 ">
-              <div className=" text-center flex items-center  ">
+            <div className="text-black text-2xl font-bold flex gap-5 w-full ">
+              <div className=" text-center flex items-center w-full justify-center ">
                 Apakah anda yakin ingin LogOut
               </div>
               <div className="">
