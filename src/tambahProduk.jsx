@@ -106,48 +106,6 @@ const TambahBarang = () => {
     );
   }
 
-  if (!dataProduk || dataProduk.length === 0) {
-    return (
-      <>
-        <div className="min-h-screen flex justify-center items-center flex-col">
-          <h1 className="text-3xl text-white font-bold">Tambah Stok</h1>
-          <div className="p-4  w-1/2 mx-auto grid grid-cols-2 gap-10  justify-center items-center">
-            <div className="bg-[#2d1b08]  shadow rounded-md p-5 ">
-              <div className="animate-pulse flex space-x-4">
-                <div className="flex-1 space-y-6 py-1">
-                  <div className="h-12 bg-white rounded"></div>
-                  <div className="h-16 bg-white rounded"></div>
-                  <div className="h-16 bg-white rounded"></div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-[#2d1b08] shadow rounded-md p-5">
-              <div className="animate-pulse flex space-x-4">
-                <div className="flex-1 space-y-6 py-1">
-                  <div className="h-12 bg-white rounded"></div>
-                  <div className="h-16 bg-white rounded"></div>
-                  <div className="h-16 bg-white rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="fixed bottom-5 right-5 rounded-xl flex flex-col p-2 text-black">
-          <button
-            className="bg-white p-2 rounded-xl hover:bg-gray-200 text-lg font-bold"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Kembali
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  console.log(dataProduk);
-
   return (
     <>
       <div className="min-h-screen">
@@ -156,6 +114,32 @@ const TambahBarang = () => {
             <div className="mt-20 text-white text-3xl font-bold mb-10">
               Daftar Produk
             </div>
+            {!dataProduk ||
+              (dataProduk.length === 0 && (
+                <>
+                  <h1 className="text-3xl text-white font-bold">Tambah Stok</h1>
+                  <div className="p-4  w-1/2 mx-auto grid grid-cols-2 gap-10  justify-center items-center">
+                    <div className="bg-[#2d1b08]  shadow rounded-md p-5 ">
+                      <div className="animate-pulse flex space-x-4">
+                        <div className="flex-1 space-y-6 py-1">
+                          <div className="h-12 bg-white rounded"></div>
+                          <div className="h-16 bg-white rounded"></div>
+                          <div className="h-16 bg-white rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-[#2d1b08] shadow rounded-md p-5">
+                      <div className="animate-pulse flex space-x-4">
+                        <div className="flex-1 space-y-6 py-1">
+                          <div className="h-12 bg-white rounded"></div>
+                          <div className="h-16 bg-white rounded"></div>
+                          <div className="h-16 bg-white rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ))}
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 lg:w-1/2 md:w-1/2">
               {dataProduk &&
                 dataProduk.map((items, index) => (

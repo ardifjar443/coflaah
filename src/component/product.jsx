@@ -108,7 +108,7 @@ const Product = (props) => {
               <div
                 key={index}
                 className={
-                  index == dataProduk.length - 1 || cekBaru(items.time)
+                  cekBaru(items.time)
                     ? "col-span-1 lg:col-span-2 md:col-span-1 order-first"
                     : ""
                 }
@@ -120,7 +120,7 @@ const Product = (props) => {
                   >
                     <figure>
                       <img
-                        src={"./img/" + items.foto}
+                        src={items.foto}
                         alt="Shoes"
                         className="bg-contain"
                       />

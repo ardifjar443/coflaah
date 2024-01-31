@@ -135,7 +135,7 @@ const TambahStok = () => {
                   >
                     <figure>
                       <img
-                        src={"./img/" + items.foto}
+                        src={items.foto}
                         alt="Shoes"
                         className="bg-cover w-full"
                       />

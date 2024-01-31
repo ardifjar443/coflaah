@@ -1,3 +1,5 @@
+import { setDatauser } from "./dataUser";
+
 // api.js
 const baseUrl = "http://localhost/backend_coflaah"; // Ganti dengan URL base yang sesuai
 // const baseUrl = "https://coflaah123.000webhostapp.com/backend_coflaah"; // Ganti dengan URL base yang sesuai
@@ -69,4 +71,5 @@ export const cekLoginAdmin = () => {
 export const logout = () => {
   statusLogin = false;
   statusLoginAdmin = false;
+  setDatauser(null);
 };

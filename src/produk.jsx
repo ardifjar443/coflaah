@@ -3,9 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { getProduk } from "./api/getProduk";
 import Popup from "./component/popup";
 import { cekLogin } from "./api/login";
+import { buatPesanan } from "./api/buatPesanan";
+import { getDataUser } from "./api/dataUser";
 
 const Produk = () => {
   const [popup, setPopup] = useState(false);
+  const [id_transaksi, setId_transaksi] = useState("");
 
   const navigate = useNavigate();
   const [jumlah, setJumlah] = useState(1);
@@ -47,7 +50,9 @@ const Produk = () => {
   }, []);
 
   const handleTambah = () => {
-    setJumlah(jumlah + 1);
+    if (jumlah < selectedBarang.stok) {
+      setJumlah(jumlah + 1);
+    }
   };
   const handleKurang = () => {
     if (jumlah > 1) {
@@ -162,6 +167,25 @@ const Produk = () => {
     );
   }
 
+  const handleSubmit = async () => {
+    try {
+      const data = await buatPesanan(
+        getDataUser().dataUser.username,
+        id,
+        jumlah,
+        id_transaksi
+      );
+
+      if (data) {
+        setDataProduk(data);
+        setStok(data.map((items) => parseInt(items.stok)));
+        setStok1(data.map((items) => parseInt(items.stok)));
+      }
+    } catch (error) {
+      console.error("Fetch data error:", error.message);
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen flex justify-center items-center flex-col-reverse gap-5 p-10 md:flex-row lg:flex-row pt-20 md:pt-0 lg:pt-0">
@@ -202,7 +226,7 @@ const Produk = () => {
           </div>
         </div>
         <div className=" max-w-xl w-full mx-auto p-4 rounded-xl flex flex-col gap- bg-white">
-          <img src={"../img/" + selectedBarang.foto} className="rounded-xl" />
+          <img src={selectedBarang.foto} className="rounded-xl" />
           <div className="bg-white p-4 rounded-xl text-black">
             <h1 className="text-xl font-bold">Keterangan :</h1>
             <span>{selectedBarang.deskripsi}</span>
@@ -235,6 +259,14 @@ const Produk = () => {
                       {formatRupiah(selectedBarang.harga * jumlah)}
                     </span>
                   </div>
+                  <button
+                    className="bg-yellow-700 hover:bg-yellow-800 p-2 rounded-md text-white w-full mt-4"
+                    onClick={() => {
+                      setIsiPopup("bukti");
+                    }}
+                  >
+                    Selanjutnya
+                  </button>
                 </div>
               ) : isiPopup === "bukti" ? (
                 <div className="flex flex-col gap-5">
@@ -245,6 +277,9 @@ const Produk = () => {
                     type="text"
                     placeholder="Type here"
                     className="input w-full  bg-white border border-yellow-900 text-black"
+                    onChange={(e) => {
+                      setId_transaksi(e.target.value);
+                    }}
                   />
                   <button
                     className="bg-yellow-700 hover:bg-yellow-800 p-2 rounded-md text-white"
@@ -267,16 +302,17 @@ const Produk = () => {
           }
           namaButton={
             isiPopup === "qr"
-              ? "Selanjutnya"
+              ? "kembali"
               : isiPopup === "bukti"
               ? "Kirim"
               : "Kembali ke Halaman Utama"
           }
           onClose={() => {
             if (isiPopup === "qr") {
-              setIsiPopup("bukti");
+              setPopup(false);
             } else if (isiPopup === "bukti") {
               setIsiPopup("selesai");
+              handleSubmit();
             } else if (isiPopup === "selesai") {
               setIsiPopup("qr");
               setPopup(false);

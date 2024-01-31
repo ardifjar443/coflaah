@@ -3,17 +3,31 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getDataUser, setDatauser } from "../api/dataUser";
 import Popup from "./popup";
 import { logout } from "../api/login";
+import { getPesananUser } from "../api/getPesananUser";
+import { updatePesanan } from "../api/buatPesanan";
 
 const Navbar = (props) => {
   const [popup, setPopup] = useState(false);
   const navigate = useNavigate();
   // State untuk menyimpan data pengguna
   const [userData, setUserData] = useState(null);
+  const [pesanan, setPesanan] = useState(null);
 
   useEffect(() => {
     // Gunakan getUserData untuk mendapatkan data pengguna
     setUserData(getDataUser());
-  }, [getDataUser()]); // useEffect hanya dijalankan saat komponen pertama kali dirender
+    if (getDataUser()) {
+      async function fetchData() {
+        const result = await getPesananUser(getDataUser().dataUser.username);
+        if (result.message) {
+          setPesanan(result.data);
+        }
+      }
+      fetchData();
+    } else {
+      setPesanan(null);
+    }
+  }, [getDataUser(), updatePesanan()]); // useEffect hanya dijalankan saat komponen pertama kali dirender
 
   const [logo, setLogo] = useState(false);
   const [logo1, setLogo1] = useState(false);
@@ -53,52 +67,76 @@ const Navbar = (props) => {
               tabIndex={0}
               className="btn btn-ghost btn-circle text-white "
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
+                <span className="badge badge-xs bg-yellow-400 indicator-item"></span>
+              </div>
             </label>
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content  z-[1]  shadow bg-white rounded-box w-fit left-5 text-black "
             >
-              <li>
-                <div className="card w-96  shadow-x bg-white hover:text-yellow-800 active:bg-yellow-600">
-                  <figure>
-                    <img
-                      src="./img/kopi1.png"
-                      alt="Shoes "
-                      className=" w-28 h-28 object-cover"
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title hover:text-yellow-800">
-                      Produk baru
-                    </h2>
-                    <p>Signature Fix</p>
-                    <div className="card-actions justify-end ">
+              {pesanan ? (
+                pesanan.map((items, index) => (
+                  <li key={index}>
+                    <div className="card w-96  shadow-x bg-white hover:text-yellow-800 active:bg-yellow-600">
+                      <figure>
+                        <img
+                          src={items.foto}
+                          alt="Shoes "
+                          className=" w-28 h-28 object-cover"
+                        />
+                      </figure>
+                      <div className="card-body">
+                        <h2 className="card-title hover:text-yellow-800">
+                          {items.status}
+                        </h2>
+                        <p className="font-bold">Signature Fix</p>
+                        <p>menunggu konfirmasi</p>
+                        <div className="card-actions justify-end ">
+                          <button
+                            className="btn bg-yellow-800 hover:bg-yellow-900 border-none text-white"
+                            onClick={() => {
+                              props.view("kopi1");
+                            }}
+                          >
+                            View
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <>
+                  <li>
+                    <div className="card w-96  shadow-x bg-white  flex flex-col">
+                      <h1>Login Terlebih Dahulu</h1>
                       <button
-                        className="btn bg-yellow-800 hover:bg-yellow-900 border-none text-white"
+                        className="bg-amber-500 hover:bg-amber-700 p-2 rounded-lg text-white"
                         onClick={() => {
-                          props.view("kopi1");
+                          navigate("/login");
                         }}
                       >
-                        View
+                        Login
                       </button>
                     </div>
-                  </div>
-                </div>
-              </li>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
