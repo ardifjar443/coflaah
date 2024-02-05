@@ -15,6 +15,7 @@ import ScrollToTopOnRouteChange from "./ScrollToTop";
 import TambahStok from "./tambahStok";
 import TambahBarang from "./tambahProduk";
 import PageNotFound from "./component/pageNotFound";
+import Register from "./register";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -103,6 +104,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/produk/:id" element={<Produk />} />
             <Route path="/tambahStok" element={<TambahStok />} />
             <Route path="/tambahBarang" element={<TambahBarang />} />

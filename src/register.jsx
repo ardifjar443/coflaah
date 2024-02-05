@@ -11,6 +11,8 @@ const Register = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password_validation, setPassword_validation] = useState("");
   const handleIsAdmin = () => {
     setIsAdmin(!isAdmin);
   };
@@ -22,6 +24,14 @@ const Register = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handlePasswordValidChange = (event) => {
+    setPassword_validation(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handleLogin = async () => {
@@ -68,7 +78,14 @@ const Register = () => {
     <>
       <div className="min-h-screen flex justify-center items-center">
         <div className="bg-white p-5 rounded-xl shadow-md text-black flex flex-col gap-5 justify-center items-center">
-          <h1 className="text-3xl font-bold">Login</h1>
+          <h1 className="text-3xl font-bold">Register</h1>
+          <input
+            type="email"
+            placeholder="Email"
+            className="input input-bordered w-full max-w-xs bg-white"
+            value={email}
+            onChange={handleEmailChange}
+          />
           <input
             type="text"
             placeholder="Username"
@@ -82,6 +99,13 @@ const Register = () => {
             className="input input-bordered w-full max-w-xs bg-white"
             value={password}
             onChange={handlePasswordChange}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="input input-bordered w-full max-w-xs bg-white"
+            value={password_validation}
+            onChange={handlePasswordValidChange}
           />
           <button
             className="p-2 rounded-xl text-white font-bold w-full bg-amber-900 hover:bg-amber-950 "
