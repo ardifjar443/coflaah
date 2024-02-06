@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center flex-col">
         <div className="bg-white p-5 rounded-xl shadow-md text-black flex flex-col gap-5 justify-center items-center">
           <h1 className="text-3xl font-bold">Login</h1>
           <input
@@ -90,6 +90,19 @@ const Login = () => {
             Login
           </button>
         </div>
+        {!isAdmin && (
+          <div className="text-center animate__animated animate__pulse">
+            <p className="text-white text-lg ">Belum Punya akun ?</p>
+            <button
+              className="text-white text-lg font-bold hover:bg-yellow-900 p-2 rounded-lg hover:text-white"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Register Sekarang{" "}
+            </button>
+          </div>
+        )}
         <div className="fixed bottom-10 right-10 bg-white rounded-xl flex flex-col p-2 text-black">
           <input
             type="checkbox"

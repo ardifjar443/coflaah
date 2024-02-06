@@ -48,6 +48,14 @@ const Register = () => {
     } else if (!emailValid) {
       setPesan("Email anda tidak valid");
       setPopup(true);
+    } else if (
+      username === "" ||
+      password === "" ||
+      email === "" ||
+      nama === ""
+    ) {
+      setPesan("Tidak boleh ada kolom yang kosong");
+      setPopup(true);
     } else {
       try {
         const data = await userRegister(username, password, email, nama);
@@ -79,7 +87,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center flex-col">
         <div className="bg-white p-5 rounded-xl shadow-md text-black flex flex-col gap-5 justify-center items-center w-1/2">
           <h1 className="text-3xl font-bold">Register</h1>
           {!emailValid && (
@@ -166,6 +174,17 @@ const Register = () => {
             onClick={handleRegister}
           >
             Register
+          </button>
+        </div>
+        <div className="text-center">
+          <p className="text-white text-lg">Udah Punya Akun ?</p>
+          <button
+            className="text-white text-lg font-bold hover:bg-yellow-900 p-2 rounded-lg hover:text-white"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login Sekarang{" "}
           </button>
         </div>
         {/* <div className="fixed bottom-10 right-10 bg-white rounded-xl flex flex-col p-2 text-black">

@@ -284,10 +284,11 @@ const Produk = () => {
                   <button
                     className="bg-yellow-700 hover:bg-yellow-800 p-2 rounded-md text-white"
                     onClick={() => {
-                      setIsiPopup("qr");
+                      setIsiPopup("selesai");
+                      handleSubmit();
                     }}
                   >
-                    Kembali ke Kode QR
+                    Kirim
                   </button>
                 </div>
               ) : (
@@ -304,15 +305,14 @@ const Produk = () => {
             isiPopup === "qr"
               ? "kembali"
               : isiPopup === "bukti"
-              ? "Kirim"
+              ? "Kembali Ke qr code"
               : "Kembali ke Halaman Utama"
           }
           onClose={() => {
             if (isiPopup === "qr") {
               setPopup(false);
             } else if (isiPopup === "bukti") {
-              setIsiPopup("selesai");
-              handleSubmit();
+              setIsiPopup("qr");
             } else if (isiPopup === "selesai") {
               setIsiPopup("qr");
               setPopup(false);

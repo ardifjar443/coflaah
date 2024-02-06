@@ -30,8 +30,13 @@ const Homeadmin = () => {
             >
               Tambah Produk
             </button>
-            <button className="bg-yellow-900 hover:bg-yellow-950 text-white p-3 text-2xl rounded-xl  ">
-              History pesanan
+            <button
+              className="bg-yellow-900 hover:bg-yellow-950 text-white p-3 text-2xl rounded-xl  "
+              onClick={() => {
+                navigate("/daftarPesanan");
+              }}
+            >
+              Daftar pesanan
             </button>
           </div>
           <div className="col-span-1 md:col-span-3 lg:col-span-3 h-fit order-first md:order-last lg:order-last bg-black">

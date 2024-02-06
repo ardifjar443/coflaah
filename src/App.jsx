@@ -16,6 +16,7 @@ import TambahStok from "./tambahStok";
 import TambahBarang from "./tambahProduk";
 import PageNotFound from "./component/pageNotFound";
 import Register from "./register";
+import DaftarPesanan from "./daftarPesanan";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -108,6 +109,7 @@ function App() {
             <Route path="/produk/:id" element={<Produk />} />
             <Route path="/tambahStok" element={<TambahStok />} />
             <Route path="/tambahBarang" element={<TambahBarang />} />
+            <Route path="/daftarPesanan" element={<DaftarPesanan />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
