@@ -112,7 +112,13 @@ const Navbar = (props) => {
                             {items.status}
                           </h2>
                           <p className="font-bold">Signature Fix</p>
-                          <p>menunggu konfirmasi</p>
+                          <p>
+                            {items.status === "menunggu"
+                              ? "menunggu konfirmasi pembayaran"
+                              : items.status === "dibuat"
+                              ? "pesanan sedang dibuat"
+                              : "pesanan telah selesai"}
+                          </p>
                           <div className="card-actions justify-end ">
                             <button
                               className="btn bg-yellow-800 hover:bg-yellow-900 border-none text-white"

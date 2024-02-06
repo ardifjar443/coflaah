@@ -3,12 +3,15 @@ import { getPesanan } from "./api/getPesanan";
 import Popup from "./component/popup";
 import { cekLoginAdmin } from "./api/login";
 import { useNavigate } from "react-router-dom";
+import { validPembayaran } from "./api/validPembayaran";
+import { selesaiPesanan } from "./api/selesaiPesanan";
 
 const DaftarPesanan = () => {
   const navigate = useNavigate();
   const [statusLoginAdmin, setStatusLoginAdmin] = useState(false);
   const [popup, setPopup] = useState(false);
   const [isiPopup, setIsiPopup] = useState("");
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     setStatusLoginAdmin(cekLoginAdmin());
   }, []);
@@ -29,7 +32,7 @@ const DaftarPesanan = () => {
       // ...
     }
     fetchData();
-  }, []);
+  }, [update]);
   const formatRupiah = (number) => {
     // Lakukan validasi untuk memastikan input adalah angka
     if (isNaN(number)) {
@@ -76,6 +79,39 @@ const DaftarPesanan = () => {
       </>
     );
   }
+
+  const handleKonfirmasi = async (id) => {
+    try {
+      const data = await validPembayaran(id);
+      setUpdate(!update);
+      setIsiPopup(
+        <>
+          <div className="text-black text-center text-2xl font-bold">
+            {data.message}
+          </div>
+        </>
+      );
+      setPopup(true);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const handleSelesai = async (id) => {
+    try {
+      const data = await selesaiPesanan(id);
+      setUpdate(!update);
+      setIsiPopup(
+        <>
+          <div className="text-black text-center text-2xl font-bold">
+            {data.message}
+          </div>
+        </>
+      );
+      setPopup(true);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
@@ -139,15 +175,37 @@ const DaftarPesanan = () => {
                     </tbody>
                   </table>
                   <div className="card-actions justify-end">
-                    <button className="bg-amber-900 p-3 rounded-lg hover:bg-amber-950 text-xl text-white">
-                      Watch
-                    </button>
+                    {items.status !== "selesai" && (
+                      <button
+                        className="bg-amber-900 p-3 rounded-lg hover:bg-amber-950 text-xl text-white"
+                        onClick={() => {
+                          if (items.status === "menunggu") {
+                            handleKonfirmasi(items.id_pesanan);
+                          } else if (items.status === "dibuat") {
+                            handleSelesai(items.id_pesanan);
+                          }
+                        }}
+                      >
+                        {items.status === "menunggu"
+                          ? "Konfirmasi Pembayaran"
+                          : items.status === "dibuat" && "Pesanan Selesai"}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
         </div>
       </div>
+      {popup && (
+        <Popup
+          content={isiPopup}
+          onClose={() => {
+            setPopup(false);
+          }}
+          namaButton={"Kembali"}
+        />
+      )}
     </>
   );
 };
