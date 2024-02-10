@@ -1,8 +1,10 @@
-const baseUrl = "http://localhost/backend_coflaah/addProduk.php";
+import { getUrl } from "./api";
+
+const baseUrl = getUrl();
 
 export const addProduk = async (formData) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}/addProduk.php`, {
       method: "POST",
       body: formData,
     });

@@ -1,7 +1,8 @@
+import { getUrl } from "./api";
 import { setDatauser } from "./dataUser";
 
 // api.js
-const baseUrl = "http://localhost/backend_coflaah"; // Ganti dengan URL base yang sesuai
+const baseUrl = getUrl(); // Ganti dengan URL base yang sesuai
 // const baseUrl = "https://coflaah123.000webhostapp.com/backend_coflaah"; // Ganti dengan URL base yang sesuai
 
 let statusLogin = false;
@@ -9,7 +10,7 @@ let statusLoginAdmin = false;
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await fetch(`${baseUrl}/login.php`, {
+    const response = await fetch(`${baseUrl}login.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -36,7 +37,7 @@ export const loginUser = async (username, password) => {
 
 export const loginAdmin = async (username, password) => {
   try {
-    const response = await fetch(`${baseUrl}/loginAdmin.php`, {
+    const response = await fetch(`${baseUrl}loginAdmin.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

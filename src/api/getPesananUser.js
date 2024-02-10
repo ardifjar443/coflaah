@@ -1,8 +1,10 @@
-const baseUrl = "http://localhost/backend_coflaah/getPesananUser.php";
+import { getUrl } from "./api";
+
+const baseUrl = getUrl();
 
 export const getPesananUser = async (username) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}getPesananUser.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

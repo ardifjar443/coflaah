@@ -34,7 +34,7 @@ const Home = () => {
 
   const order = () => {
     // Mengarahkan ke elemen dengan id "contoh"
-    const contohElement = document.getElementById("order");
+    const contohElement = document.getElementById("product");
 
     if (contohElement) {
       contohElement.scrollIntoView({ behavior: "smooth" });

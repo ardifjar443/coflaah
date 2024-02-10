@@ -1,4 +1,6 @@
-const baseUrl = "http://localhost/backend_coflaah/buatPesanan.php";
+import { getUrl } from "./api";
+
+const baseUrl = getUrl();
 
 let update = false;
 
@@ -9,7 +11,7 @@ export const buatPesanan = async (
   id_transaksi
 ) => {
   try {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(`${baseUrl}/buatPesanan.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

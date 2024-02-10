@@ -1,7 +1,9 @@
-const baseUrl = "http://localhost/backend_coflaah";
+import { getUrl } from "./api";
+
+const baseUrl = getUrl();
 export const userRegister = async (username, password, email, nama) => {
   try {
-    const response = await fetch(`${baseUrl}/register.php`, {
+    const response = await fetch(`${baseUrl}register.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

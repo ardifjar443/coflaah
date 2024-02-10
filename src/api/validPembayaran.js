@@ -1,7 +1,9 @@
-const baseUrl = "http://localhost/backend_coflaah";
+import { getUrl } from "./api";
+
+const baseUrl = getUrl();
 export const validPembayaran = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/validPembayaran.php`, {
+    const response = await fetch(`${baseUrl}validPembayaran.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
